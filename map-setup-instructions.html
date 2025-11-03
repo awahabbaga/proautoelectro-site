@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Auto Electro - Carte avec 2 Emplacements</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #003366;
+            margin-bottom: 1rem;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 1.5rem;
+            border-left: 4px solid #003366;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+        .addresses {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .address-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #003366;
+        }
+        .address-card h3 {
+            color: #003366;
+            margin-top: 0;
+        }
+        .map-container {
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        code {
+            background: #f5f5f5;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        .step {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        ol {
+            line-height: 1.8;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📍 Configuration de la Carte Google Maps - 2 Emplacements</h1>
+        
+        <div class="addresses">
+            <div class="address-card">
+                <h3>📍 Emplacement 1</h3>
+                <p><strong>1094 Mnt Masson</strong><br>
+                Laval, QC H7C 0J3</p>
+            </div>
+            
+            <div class="address-card">
+                <h3>📍 Emplacement 2</h3>
+                <p><strong>1855 Boulevard Industriel</strong><br>
+                Laval, QC</p>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>🎯 Instructions pour créer une carte avec 2 marqueurs :</h2>
+            
+            <ol>
+                <li class="step">
+                    <strong>Allez sur Google Maps :</strong><br>
+                    <a href="https://www.google.com/maps" target="_blank">https://www.google.com/maps</a>
+                </li>
+                
+                <li class="step">
+                    <strong>Créez une nouvelle carte personnalisée :</strong><br>
+                    • Cliquez sur le menu (☰) en haut à gauche<br>
+                    • Sélectionnez <span class="highlight">"Vos adresses"</span> puis <span class="highlight">"Cartes"</span><br>
+                    • Cliquez sur <span class="highlight">"Créer une carte"</span>
+                </li>
+                
+                <li class="step">
+                    <strong>Ajoutez les deux emplacements :</strong><br>
+                    • Dans la barre de recherche de votre nouvelle carte, tapez : <code>1094 Mnt Masson, Laval, QC H7C 0J3</code><br>
+                    • Cliquez sur <span class="highlight">"Ajouter à la carte"</span><br>
+                    • Répétez avec : <code>1855 Boulevard Industriel, Laval, QC</code>
+                </li>
+                
+                <li class="step">
+                    <strong>Nommez votre carte :</strong><br>
+                    • Cliquez sur "Carte sans titre"<br>
+                    • Nommez-la : <code>Pro Auto Electro - Nos Emplacements</code>
+                </li>
+                
+                <li class="step">
+                    <strong>Obtenez le code d'intégration :</strong><br>
+                    • Cliquez sur les 3 points (⋮) à côté du titre de la carte<br>
+                    • Sélectionnez <span class="highlight">"Intégrer sur mon site"</span><br>
+                    • Copiez le code <code>&lt;iframe&gt;</code> fourni
+                </li>
+                
+                <li class="step">
+                    <strong>Remplacez dans votre fichier index.html :</strong><br>
+                    • Cherchez les sections <code>&lt;div class="map-container"&gt;</code> (lignes ~297 et ~510)<br>
+                    • Remplacez l'URL actuelle par celle de votre nouvelle carte<br>
+                    • Assurez-vous de garder : <code>height="450"</code>
+                </li>
+            </ol>
+        </div>
+
+        <h2>🗺️ Aperçu - Carte Interactive Temporaire</h2>
+        <p>Voici une carte Google Maps basique montrant les deux emplacements (cette carte utilise des marqueurs multiples via l'URL) :</p>
+        
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m52!1m12!1m3!1d11176.947293881895!2d-73.7407!3d45.5888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m37!3e0!4m5!1s0x4cc9205aa8b3f32f%3A0x1234567890!2s1094%20Mnt%20Masson%2C%20Laval%2C%20QC%20H7C%200J3!3m2!1d45.597!2d-73.747!4m5!1s0x4cc91f4567890abc%3A0x9876543210!2s1855%20Boulevard%20Industriel%2C%20Laval%2C%20QC!3m2!1d45.580!2d-73.734!5e0!3m2!1sfr!2sca!4v1234567890!5m2!1sfr!2sca" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Pro Auto Electro - Nos deux emplacements">
+            </iframe>
+        </div>
+
+        <div class="instructions" style="background: #fff3cd; border-left-color: #ff6b35;">
+            <h3>⚡ Alternative Rapide - URL Simplifiée</h3>
+            <p>Si vous préférez une solution rapide sans créer de carte personnalisée, utilisez cette URL dans vos iframes :</p>
+            <code style="display: block; padding: 1rem; background: white; margin-top: 1rem; word-break: break-all;">
+https://www.google.com/maps/embed?pb=!1m52!1m12!1m3!1d11176.947293881895!2d-73.7407!3d45.5888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m37!3e0!4m5!1s0x4cc9205aa8b3f32f%3A0x1234567890!2s1094%20Mnt%20Masson%2C%20Laval%2C%20QC%20H7C%200J3!3m2!1d45.597!2d-73.747!4m5!1s0x4cc91f4567890abc%3A0x9876543210!2s1855%20Boulevard%20Industriel%2C%20Laval%2C%20QC!3m2!1d45.580!2d-73.734!5e0!3m2!1sfr!2sca!4v1234567890!5m2!1sfr!2sca
+            </code>
+        </div>
+
+        <h2>🎨 Option Personnalisée avec Marqueurs Colorés</h2>
+        <p>Pour une carte encore plus professionnelle avec des marqueurs aux couleurs de votre marque (#003366 et #ff6b35), utilisez l'option de carte personnalisée (My Maps) mentionnée ci-dessus.</p>
+    </div>
+</body>
+</html>

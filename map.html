@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Auto Electro - Nos Emplacements</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .custom-popup {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .custom-popup h3 {
+            color: #003366;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .custom-popup p {
+            color: #666;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .custom-popup a {
+            display: inline-block;
+            margin-top: 0.5rem;
+            color: #ff6b35;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .custom-popup a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        // Define both locations
+        const locations = [
+            {
+                id: 1,
+                name: 'Pro Auto Electro - Principal',
+                address: '1094 Mnt Masson, Laval, QC H7C 0J3',
+                lat: 45.5971,
+                lng: -73.7472
+            },
+            {
+                id: 2,
+                name: 'Pro Auto Electro - Industriel',
+                address: '1855 Boulevard Industriel, Laval, QC',
+                lat: 45.5803,
+                lng: -73.7344
+            }
+        ];
+
+        let map;
+
+        // Initialize map
+        function initMap() {
+            // Center point between both locations
+            const center = [
+                (locations[0].lat + locations[1].lat) / 2,
+                (locations[0].lng + locations[1].lng) / 2
+            ];
+
+            // Create map using Leaflet
+            map = L.map('map').setView(center, 13);
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Custom icons for markers
+            const icon1 = L.divIcon({
+                html: '<div style="background: #003366; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">1</div>',
+                className: 'custom-marker',
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
+            });
+
+            const icon2 = L.divIcon({
+                html: '<div style="background: #ff6b35; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">2</div>',
+                className: 'custom-marker',
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
+            });
+
+            // Add markers for both locations
+            locations.forEach((location) => {
+                const marker = L.marker([location.lat, location.lng], {
+                    icon: location.id === 1 ? icon1 : icon2
+                }).addTo(map);
+
+                const popupContent = `
+                    <div class="custom-popup">
+                        <h3>${location.name}</h3>
+                        <p>${location.address}</p>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}" 
+                           target="_blank">
+                            📍 Obtenir l'itinéraire →
+                        </a>
+                    </div>
+                `;
+
+                marker.bindPopup(popupContent);
+            });
+
+            // Fit bounds to show both locations
+            fitBounds();
+        }
+
+        function showLocation(id) {
+            const location = locations.find(loc => loc.id === id);
+            if (location) {
+                map.setView([location.lat, location.lng], 15);
+            }
+        }
+
+        function fitBounds() {
+            const bounds = L.latLngBounds(
+                locations.map(loc => [loc.lat, loc.lng])
+            );
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }
+
+        // Initialize map when page loads
+        window.addEventListener('load', initMap);
+
+        // Listen for messages from parent window
+        window.addEventListener('message', (event) => {
+            if (event.data.action === 'showLocation') {
+                showLocation(event.data.locationId);
+            } else if (event.data.action === 'showAll') {
+                fitBounds();
+            }
+        });
+    </script>
+</body>
+</html>
